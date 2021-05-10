@@ -1,6 +1,6 @@
 import React from 'react';
 import { usersSlice } from './features/users/user-slice';
-import { store } from './app/store';
+import { store } from './store';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import './index.css';

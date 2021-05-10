@@ -6,15 +6,6 @@ type UsersStateI = {
   error: null | string | undefined;
 };
 
-// const initialState = [
-//   {
-//     isLoggedIn: true,
-//     loading: false,
-//     erorr: null,
-//     user: {},
-//   },
-// ];
-
 const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users');
@@ -32,16 +23,8 @@ export const usersSlice = createSlice({
     loading: false,
     error: null,
   } as UsersStateI,
-  reducers: {
-    //   addBook(state, action) {
-    //     state.books.push(action.payload)
-    //   }
-  },
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchUsers.pending, (state, action) => {
+  reducers: {},
 
-  //   })
-  // }
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, (state, action) => {
       state.loading = true;
