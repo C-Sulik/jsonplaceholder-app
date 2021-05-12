@@ -1,34 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TodoI } from './todos-slice';
-import { ListItemWrapper, ListItemTitle, StyledButton } from '../../Components/styles';
+import { Button } from '../../Components/Button/';
+import { ListItemTitle, ListItemWrapper } from './styles';
 
-interface ListItemI {
-  title: string;
-}
+export const StyledCheckbox = styled.input`
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+`;
 
 const Checkbox: React.FC<{ checked: boolean }> = ({ checked }) => {
-  return <input type="checkbox" checked={checked}></input>;
+  return <StyledCheckbox type="checkbox" checked={checked}></StyledCheckbox>;
 };
 
-const DeleteBtn = () => {
-  return <button>Delete</button>;
-};
-
-const Button: React.FC<{ type?: 'submit' | 'reset' | 'button'; color: string }> = ({
-  type = 'button',
-  children,
-  color,
-}) => {
-  return (
-    <StyledButton type={type} color={color}>
-      {children}
-    </StyledButton>
-  );
-};
-// https://material-ui.com/ru/components/checkboxes/
-// https://material-ui.com/ru/components/buttons/
-// https://github.com/mui-org/material-ui/blob/next/packages/material-ui/src/Button/Button.js
 export const ListItem: React.FC<TodoI> = ({ title, completed }) => {
   return (
     <ListItemWrapper>

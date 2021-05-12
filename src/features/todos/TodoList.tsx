@@ -5,7 +5,7 @@ import { RootStateI } from '../../store';
 import { fetchingStatuses } from '../../types';
 import { ListItem } from './ListItem';
 import { Loader } from '../../Components/Loader';
-import { TodoListWrapper, ListItemsWrapper } from '../../Components/styles';
+import { TodoListWrapper, ListItemsWrapper } from './styles';
 
 const { pending, fulfilled, rejected } = fetchingStatuses;
 
