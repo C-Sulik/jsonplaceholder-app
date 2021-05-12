@@ -48,5 +48,3 @@ export const todosSlice = createSlice({
     });
   },
 });
-
-const { actions, reducer } = todosSlice;
