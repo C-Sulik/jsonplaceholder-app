@@ -1,18 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Checkbox } from '../../Components/Checkbox';
 import { TodoI } from './todos-slice';
 import { Button } from '../../Components/Button/';
 import { ListItemTitle, ListItemWrapper } from './styles';
-
-export const StyledCheckbox = styled.input`
-  width: 20px;
-  height: 20px;
-  margin: 10px;
-`;
-
-const Checkbox: React.FC<{ checked: boolean }> = ({ checked }) => {
-  return <StyledCheckbox type="checkbox" checked={checked}></StyledCheckbox>;
-};
 
 export const ListItem: React.FC<TodoI> = ({ title, completed }) => {
   return (
