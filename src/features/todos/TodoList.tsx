@@ -23,15 +23,15 @@ export const TodoList = () => {
 
   return (
     <TodoListWrapper>
-      {fetchingStatus === pending && <Loader />}
-      {fetchingStatus === fulfilled && (
+      {fetchingStatus.list === pending && <Loader />}
+      {fetchingStatus.list === fulfilled && (
         <ListItemsWrapper>
           {todos.map((todo: TodoI) => (
-            <ListItem {...todo} />
+            <ListItem {...todo} fetchingStatus={fetchingStatus} key={todo.id} />
           ))}
         </ListItemsWrapper>
       )}
-      {fetchingStatus === rejected && <p>{error}</p>}
+      {fetchingStatus.list === rejected && <p>{error}</p>}
     </TodoListWrapper>
   );
 };

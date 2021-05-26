@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledTodoListMenu = styled.section`
-  width: 20%;
-  background-color: #91a3b0;
-`;
-
 export const TodoListWrapper = styled.section`
   width: 60%;
-  background-color: #b9d9eb;
+  background-color: #30ba8f;
 `;
 
 export const StyledTodoListTitle = styled.h2`
@@ -21,10 +16,13 @@ export const ListItemsWrapper = styled.ul`
 
 export const ListItemWrapper = styled.li`
   display: flex;
-  border-bottom: 1px solid black;
+  margin: 2px;
+  border-radius: 5px;
+  background-color: #aaf0d1;
 `;
 
 export const ListItemTitle = styled.p`
-  /* margin: 0px;
-  padding: 0px; */
+  margin: 10px;
+  margin-left: 10%;
+  font-size: 18px;
 `;

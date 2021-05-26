@@ -7,6 +7,13 @@ export const GlobalStyle = createGlobalStyle`
         url('../../fonts/Roboto-Bold.ttf'),
         url('../../fonts/Roboto-Regular.ttf');
     }
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
 `;
 
-export const StyledMainWrapper = styled.main``;
+export const StyledMainWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+`;

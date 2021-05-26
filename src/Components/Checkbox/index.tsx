@@ -7,6 +7,11 @@ export const StyledCheckbox = styled.input`
   margin: 10px;
 `;
 
-export const Checkbox: React.FC<{ checked: boolean }> = ({ checked }) => {
-  return <StyledCheckbox type="checkbox" checked={checked}></StyledCheckbox>;
+export const Checkbox: React.FC<{
+  checked: boolean;
+  handleChenge: () => void;
+}> = ({ checked, handleChenge }) => {
+  return (
+    <StyledCheckbox type="checkbox" checked={checked} onChange={handleChenge}></StyledCheckbox>
+  );
 };

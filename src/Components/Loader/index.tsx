@@ -1,6 +1,14 @@
 import React from 'react';
 
-export const Loader = () => {
+type LoaderSizes = 'regular' | 'small' | 'big';
+
+const sizesMap: { [key in LoaderSizes]: string } = {
+  regular: '40px',
+  small: '20px',
+  big: '100px',
+};
+
+export const Loader: React.FC<{ size?: LoaderSizes }> = ({ size = 'regular' }) => {
   return (
     <svg
       version="1.1"
@@ -9,8 +17,8 @@ export const Loader = () => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       x="0px"
       y="0px"
-      width="40px"
-      height="40px"
+      width={sizesMap[size]}
+      height={sizesMap[size]}
       viewBox="0 0 50 50"
       xmlSpace="preserve"
     >
