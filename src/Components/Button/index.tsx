@@ -9,11 +9,12 @@ export const StyledButton = styled.button<{ color: string }>`
 
 export const Button: React.FC<{
   type?: 'submit' | 'reset' | 'button';
-  color: string;
+  color?: string;
+  disabled?: boolean;
   onClick: () => void;
-}> = ({ type = 'button', children, color, onClick }) => {
+}> = ({ type = 'button', color = 'black', disabled, onClick, children }) => {
   return (
-    <StyledButton type={type} color={color} onClick={onClick}>
+    <StyledButton type={type} disabled={disabled} color={color} onClick={onClick}>
       {children}
     </StyledButton>
   );

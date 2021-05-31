@@ -19,15 +19,18 @@ export const ListItem: React.FC<TodoI & { fetchingStatus: StateFetchingStatuses 
   return (
     <ListItemWrapper>
       <Checkbox
-        isLoading={fetchingStatus.todo.includes(id)}
+        isLoading={fetchingStatus.edit.includes(id)}
         checked={completed}
         onChange={handleCompleteTodo}
       />
-
       <ListItemTitle>{title}</ListItemTitle>
       <ButtonsWrapper>
-        {/* <Button color="pink">Edit</Button> */}
-        <Button color="lime" onClick={handleDeleteTodo}>
+        {/* <Button color="pink" onClick={} >Edit</Button> */}
+        <Button
+          color="lime"
+          disabled={fetchingStatus.delete.includes(id)}
+          onClick={handleDeleteTodo}
+        >
           Delete
         </Button>
       </ButtonsWrapper>
