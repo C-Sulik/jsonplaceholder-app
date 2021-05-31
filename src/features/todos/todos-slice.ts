@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchingStatuses, FetchingStatus } from '../../types';
 
+const { pending, fulfilled, rejected } = fetchingStatuses;
+
 export type StateFetchingStatuses = { list: FetchingStatus; todo: number[] };
 
 export type TodosStateI = {
@@ -40,12 +42,25 @@ export const updateTodo = createAsyncThunk(
       });
       if (response.status !== 200) throw new Error(`Status: ${response.status}`);
       const data = await response.json();
-      return data;
+      return { id, ...data };
     } catch (error) {
       throw Error(error);
     }
   },
 );
+
+export const deleteTodo = createAsyncThunk('todos/deleteTodo', async (id: number) => {
+  try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: 'DELETE',
+    });
+    if (response.status !== 200) throw new Error(`Status: ${response.status}`);
+    const data = await response.json();
+    return { id, ...data };
+  } catch (error) {
+    throw Error(error);
+  }
+});
 
 export const todosSlice = createSlice({
   name: 'todos',
@@ -56,19 +71,21 @@ export const todosSlice = createSlice({
   } as TodosStateI,
   reducers: {},
   extraReducers: (builder) => {
+    // fetchTodos
     builder.addCase(fetchTodos.pending, (todos, action) => {
-      todos.fetchingStatus.list = fetchingStatuses.pending;
-
+      todos.fetchingStatus.list = pending;
       todos.error = null;
     });
     builder.addCase(fetchTodos.fulfilled, (todos, action) => {
       todos.list = action.payload;
-      todos.fetchingStatus.list = fetchingStatuses.fulfilled;
+      todos.fetchingStatus.list = fulfilled;
     });
     builder.addCase(fetchTodos.rejected, (todos, action) => {
       todos.error = action.error.message;
-      todos.fetchingStatus.list = fetchingStatuses.rejected;
+      todos.fetchingStatus.list = rejected;
     });
+
+    // updateTodo
     builder.addCase(updateTodo.pending, (todos, action) => {
       todos.fetchingStatus.todo.push(action.meta.arg.id);
       todos.error = null;
@@ -89,6 +106,20 @@ export const todosSlice = createSlice({
       todos.fetchingStatus.todo = todos.fetchingStatus.todo.filter(
         (id) => id !== action.meta.arg.id,
       );
+    });
+
+    // delete
+    builder.addCase(deleteTodo.pending, (todos, action) => {
+      todos.fetchingStatus.list = pending;
+      todos.error = null;
+    });
+    builder.addCase(deleteTodo.fulfilled, (todos, action) => {
+      todos.list = todos.list.filter((todo) => todo.id !== action.payload.id);
+      todos.fetchingStatus.list = fulfilled;
+    });
+    builder.addCase(deleteTodo.rejected, (todos, action) => {
+      todos.error = action.error.message;
+      todos.fetchingStatus.list = rejected;
     });
   },
 });

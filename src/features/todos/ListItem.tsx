@@ -1,10 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Checkbox } from '../../Components/Checkbox';
-import { TodoI, StateFetchingStatuses, updateTodo } from './todos-slice';
+import { TodoI, StateFetchingStatuses, updateTodo, deleteTodo } from './todos-slice';
 import { Button } from '../../Components/Button/';
-import { ListItemTitle, ListItemWrapper } from './styles';
-import { Loader } from '../../Components/Loader';
+import { ListItemTitle, ListItemWrapper, ButtonsWrapper } from './styles';
 
 export const ListItem: React.FC<TodoI & { fetchingStatus: StateFetchingStatuses }> = ({
   id,
@@ -14,18 +13,24 @@ export const ListItem: React.FC<TodoI & { fetchingStatus: StateFetchingStatuses 
 }) => {
   const dispatch = useDispatch();
 
-  const togleChackbox = () => dispatch(updateTodo({ id, payload: { completed: !completed } }));
+  const handleCompleteTodo = () => dispatch(updateTodo({ id, payload: { completed: !completed } }));
+  const handleDeleteTodo = () => dispatch(deleteTodo(id));
+
   return (
     <ListItemWrapper>
-      {/* <Checkbox checked={completed} onChange={() => dispatch(handleComplete)} /> */}
-      {fetchingStatus.todo.includes(id) ? (
-        <Loader />
-      ) : (
-        <Checkbox checked={completed} handleChenge={togleChackbox} />
-      )}
+      <Checkbox
+        isLoading={fetchingStatus.todo.includes(id)}
+        checked={completed}
+        onChange={handleCompleteTodo}
+      />
+
       <ListItemTitle>{title}</ListItemTitle>
-      <Button color="pink">Edit</Button>
-      <Button color="lime">Delete</Button>
+      <ButtonsWrapper>
+        {/* <Button color="pink">Edit</Button> */}
+        <Button color="lime" onClick={handleDeleteTodo}>
+          Delete
+        </Button>
+      </ButtonsWrapper>
     </ListItemWrapper>
   );
 };

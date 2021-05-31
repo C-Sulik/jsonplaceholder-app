@@ -1,17 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Loader } from '../../Components/Loader';
 
 export const StyledCheckbox = styled.input`
-  width: 20px;
-  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  /* padding: 10px; */
   margin: 10px;
+  cursor: pointer;
 `;
 
 export const Checkbox: React.FC<{
   checked: boolean;
-  handleChenge: () => void;
-}> = ({ checked, handleChenge }) => {
-  return (
-    <StyledCheckbox type="checkbox" checked={checked} onChange={handleChenge}></StyledCheckbox>
+  onChange: () => void;
+  isLoading?: boolean;
+}> = ({ checked, isLoading, onChange }) => {
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <StyledCheckbox type="checkbox" checked={checked} onChange={onChange}></StyledCheckbox>
   );
 };

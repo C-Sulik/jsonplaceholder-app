@@ -16,9 +16,14 @@ export const ListItemsWrapper = styled.ul`
 
 export const ListItemWrapper = styled.li`
   display: flex;
+  align-items: center;
   margin: 2px;
   border-radius: 5px;
   background-color: #aaf0d1;
+`;
+
+export const ButtonsWrapper = styled.div`
+  margin-left: auto;
 `;
 
 export const ListItemTitle = styled.p`
