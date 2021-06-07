@@ -1,4 +1,5 @@
 import React from 'react';
+import { enableMapSet } from 'immer';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
@@ -19,3 +20,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+enableMapSet();

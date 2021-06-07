@@ -1,9 +1,12 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchingStatuses, FetchingStatus } from '../../types';
 
 const { pending, fulfilled, rejected } = fetchingStatuses;
 
-export type StateFetchingStatuses = { list: FetchingStatus; edit: number[]; delete: number[] };
+export type StateFetchingStatuses = {
+  list: FetchingStatus;
+  todos: Set<number>;
+};
 
 export type TodosStateI = {
   list: TodoI[];
@@ -66,7 +69,7 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState: {
     list: [],
-    fetchingStatus: { list: 'pending', edit: [], delete: [] },
+    fetchingStatus: { list: 'pending', todos: new Set() },
     error: null,
   } as TodosStateI,
   reducers: {},
@@ -87,40 +90,32 @@ export const todosSlice = createSlice({
 
     // updateTodo
     builder.addCase(updateTodo.pending, (todos, action) => {
-      todos.fetchingStatus.edit.push(action.meta.arg.id);
+      todos.fetchingStatus.todos.add(action.meta.arg.id);
       todos.error = null;
     });
     builder.addCase(updateTodo.fulfilled, (todos, action) => {
       todos.list = todos.list.map((todo) =>
         todo.id === action.payload.id ? { ...todo, ...action.payload } : todo,
       );
-      todos.fetchingStatus.edit = todos.fetchingStatus.edit.filter(
-        (id) => id !== action.payload.id,
-      );
+      todos.fetchingStatus.todos.delete(action.payload.id);
     });
     builder.addCase(updateTodo.rejected, (todos, action) => {
       todos.error = action.error.message;
-      todos.fetchingStatus.edit = todos.fetchingStatus.edit.filter(
-        (id) => id !== action.meta.arg.id,
-      );
+      todos.fetchingStatus.todos.delete(action.meta.arg.id);
     });
 
     // delete
     builder.addCase(deleteTodo.pending, (todos, action) => {
-      todos.fetchingStatus.delete.push(action.meta.arg);
+      todos.fetchingStatus.todos.add(action.meta.arg);
       todos.error = null;
     });
     builder.addCase(deleteTodo.fulfilled, (todos, action) => {
       todos.list = todos.list.filter((todo) => todo.id !== action.payload.id);
-      todos.fetchingStatus.delete = todos.fetchingStatus.delete.filter(
-        (id) => id !== action.payload.id,
-      );
+      todos.fetchingStatus.todos.delete(action.payload.id);
     });
     builder.addCase(deleteTodo.rejected, (todos, action) => {
       todos.error = action.error.message;
-      todos.fetchingStatus.delete = todos.fetchingStatus.delete.filter(
-        (id) => id !== action.meta.arg,
-      );
+      todos.fetchingStatus.todos.delete(action.meta.arg);
     });
   },
 });
