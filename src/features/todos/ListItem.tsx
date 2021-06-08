@@ -49,17 +49,17 @@ export const ListItem: React.FC<TodoI & { fetchingStatus: StateFetchingStatuses 
       {isEdit ? (
         <TitleEditForm onSubmit={handleUpdateTodo}>
           <TitleEditInput type="text" value={titleEdit} onChange={handleEditTitle} />
-          <Button type="submit">Sub</Button>
+          <Button type="submit"></Button>
         </TitleEditForm>
       ) : (
         <ListItemTitle>{title}</ListItemTitle>
       )}
       <ButtonsWrapper>
-        <Button color="pink" disabled={isLoading} onClick={toggleIsEdit}>
-          Edit
+        <Button color="pink" disabled={isLoading} onClick={toggleIsEdit} icon="edit">
+          {/* Edit */}
         </Button>
-        <Button color="lime" disabled={isLoading} onClick={handleDeleteTodo}>
-          Delete
+        <Button color="lime" disabled={isLoading} onClick={handleDeleteTodo} icon="trash">
+          {/* Delete */}
         </Button>
       </ButtonsWrapper>
     </ListItemWrapper>
