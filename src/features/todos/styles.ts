@@ -23,6 +23,7 @@ export const ListItemWrapper = styled.li`
 `;
 
 export const ButtonsWrapper = styled.div`
+  display: flex;
   margin-left: auto;
 `;
 

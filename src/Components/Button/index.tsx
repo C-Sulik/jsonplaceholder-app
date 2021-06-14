@@ -10,12 +10,15 @@ const iconsMap: { [iconName in IconNames]: () => JSX.Element } = {
 };
 
 export const StyledButton = styled.button<{ color: string; icon: IconNames }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${({ icon }) => (Boolean(icon) ? '30px' : '60px')};
+  height: 30px;
   margin: 5px;
+  color: ${({ color, disabled }) => (disabled ? 'lightgray' : color || 'black')};
   border: ${({ icon }) => (Boolean(icon) ? 'none' : '1px solid black')};
   border-radius: 3px;
-  color: ${({ color }) => color || 'black'};
-  width: 60px;
-  height: 30px;
 `;
 
 export const Button: React.FC<{
